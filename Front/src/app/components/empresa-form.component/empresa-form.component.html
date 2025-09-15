@@ -1,0 +1,31 @@
+<div class="p-6 max-w-3xl mx-auto bg-white shadow-md rounded-xl">
+    <h2 class="text-xl font-semibold mb-4">Nueva Empresa</h2>
+  
+    <form (ngSubmit)="crear()" class="grid grid-cols-2 gap-4">
+      <div class="col-span-2">
+        <label>RUT</label>
+        <input type="text" [(ngModel)]="empresa.rut" name="rut" required class="w-full bg-gray-100 px-4 py-2 rounded-lg" />
+      </div>
+  
+      <div>
+        <label>Nombre Fantasía</label>
+        <input type="text" [(ngModel)]="empresa.nomFantasia" name="nomFantasia" required class="w-full bg-gray-100 px-4 py-2 rounded-lg" />
+      </div>
+  
+      <div>
+        <label>Razón Social</label>
+        <input type="text" [(ngModel)]="empresa.razonSocial" name="razonSocial" required class="w-full bg-gray-100 px-4 py-2 rounded-lg" />
+      </div>
+  
+      <div class="col-span-2">
+        <label>ID de Persona</label>
+        <input type="number" [(ngModel)]="empresa.personaId" name="personaId" required class="w-full bg-gray-100 px-4 py-2 rounded-lg" />
+      </div>
+  
+      <div class="col-span-2 flex justify-end gap-4 mt-4">
+        <button type="button" (click)="cancelar()" class="bg-red-400 text-white px-6 py-2 rounded-full hover:bg-red-500">CANCELAR</button>
+        <button type="submit" class="bg-black text-white px-6 py-2 rounded-full hover:bg-gray-800">CREAR EMPRESA</button>
+      </div>
+    </form>
+  </div>
+  

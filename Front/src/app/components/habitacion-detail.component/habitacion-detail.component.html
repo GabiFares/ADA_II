@@ -1,0 +1,45 @@
+<div class="min-h-screen bg-[#4B7753] flex items-center justify-center p-8">
+  <div class="bg-white rounded-3xl flex flex-col md:flex-row overflow-hidden w-full max-w-5xl min-h-[450px]">
+
+    <!-- Izquierda: Info -->
+    <div class="p-10 flex flex-col justify-center md:w-1/2">
+      <h2 class="text-xl font-light italic">HABITACIÓN</h2>
+      <h3 class="text-3xl font-semibold mb-2">{{ habitacion?.numHabitacion }}</h3>
+
+      <div class="text-gray-700 text-sm mb-4">
+        <span class="mr-4">Tipo: {{ habitacion.tipo?.nombre || 'No especificado' }}</span>
+        <span>Precio: USD {{ habitacion.precio }}</span>
+      </div>
+
+      <p class="text-gray-600 mb-8">
+        {{ habitacion.observaciones || 'Habitación equipada con todas las comodidades básicas.' }}
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 mb-4">
+        <a *ngIf="habitacion && habitacion.tipo" [routerLink]="['/reservas/nueva']" [queryParams]="{ 
+            habitacionId: habitacion.id, 
+            numHabitacion: habitacion.numHabitacion, 
+            tipo: habitacion.tipo.nombre 
+          }" class="bg-black text-white px-6 py-2 rounded-full hover:bg-gray-900 text-center">
+          Reservar
+        </a>
+
+        <button class="bg-gray-700 text-white px-6 py-2 rounded-full hover:bg-gray-800">
+          Ver disponibilidad
+        </button>
+      </div>
+
+      <!-- Botón Volver -->
+      <a routerLink="/" class="text-sm text-center text-green-700 mt-4 hover:underline">
+        ← Volver al inicio
+      </a>
+    </div>
+
+    <!-- Derecha: Imagen fija -->
+    <div class="md:w-1/2">
+      <img
+        src="https://www.es.kayak.com/rimg/himg/0d/10/7e/leonardo-102237-150257091-809618.jpg?width=1366&height=768&crop=true"
+        alt="Habitación" class="object-cover h-full w-full">
+    </div>
+  </div>
+</div>

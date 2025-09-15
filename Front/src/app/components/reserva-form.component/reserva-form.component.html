@@ -1,0 +1,135 @@
+<div class="flex items-center justify-center min-h-screen bg-green-700 p-4">
+  <form
+    (ngSubmit)="crearReserva()"
+    class="bg-white rounded-2xl p-8 w-full max-w-4xl grid grid-cols-2 gap-6 shadow-lg"
+  >
+    <!-- ──────────────────── Selección Cliente ──────────────────── -->
+    <div class="col-span-2 mb-2">
+      <label class="mr-4 text-sm font-medium text-gray-700">Tipo de cliente:</label>
+      <label class="mr-4">
+        <input type="radio" [(ngModel)]="tipoCliente" name="tipoCliente" value="individuo" />
+        Individuo
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="tipoCliente" name="tipoCliente" value="empresa" />
+        Empresa
+      </label>
+    </div>
+
+    <!-- Buscador -->
+    <div class="col-span-2 flex gap-4 items-end">
+      <div class="flex-1">
+        <label class="block text-sm text-gray-700">
+          {{ tipoCliente === 'empresa' ? 'RUT empresa' : 'CI huésped' }}
+        </label>
+        <input
+          type="text"
+          [(ngModel)]="identificador"
+          name="identificador"
+          class="mt-1 w-full rounded-lg bg-gray-100 px-4 py-2"
+        />
+      </div>
+      <button
+        type="button"
+        (click)="buscarCliente()"
+        class="h-10 px-6 bg-black text-white rounded-lg hover:bg-gray-800"
+      >
+        Buscar
+      </button>
+    </div>
+
+    <!-- Resultado búsqueda -->
+    <div class="col-span-2" *ngIf="clienteEncontrado">
+      <p class="text-green-700 text-sm">
+        {{ tipoCliente === 'empresa' ? 'Empresa' : 'Huésped' }} encontrado: {{ clienteResumen }}
+      </p>
+    </div>
+
+    <div class="col-span-2" *ngIf="busquedaFallida">
+      <p class="text-red-600 text-sm mb-1">
+        No se encontró {{ tipoCliente === 'empresa' ? 'empresa' : 'huésped' }} con ese
+        identificador.
+      </p>
+      <a
+      [routerLink]="[
+        tipoCliente === 'empresa' ? '/empresas/nueva' : '/huespedes/nuevo'
+      ]"
+      [queryParams]="{
+        habitacionId: reserva.habitacionId,
+        tipo: habitacionTipoNombre,
+        numHabitacion: habitacionNumero
+      }"
+      class="text-blue-500 underline"
+    >
+      Crear nuevo {{ tipoCliente === 'empresa' ? 'empresa' : 'huésped' }}
+    </a>
+    
+    </div>
+
+    <!-- ─────────────────────* HABITACIÓN info *───────────────────── -->
+    <div>
+      <h2 class="text-lg font-light">HABITACIÓN</h2>
+      <p class="text-2xl italic font-semibold text-gray-700">{{ habitacionNumero || '-' }}</p>
+      <p class="mt-1 text-sm text-gray-600">Tipo: {{ habitacionTipoNombre || '-' }}</p>
+    </div>
+
+    <!-- ───────────────────── Fechas y datos extra ────────────────── -->
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm text-gray-700">Fecha de entrada</label>
+        <input
+          type="datetime-local"
+          [(ngModel)]="reserva.fechaIngreso"
+          name="fechaIngreso"
+          class="mt-1 w-full rounded-lg bg-gray-100 px-4 py-2"
+        />
+      </div>
+      <div>
+        <label class="block text-sm text-gray-700">Fecha de salida</label>
+        <input
+          type="datetime-local"
+          [(ngModel)]="reserva.fechaSalida"
+          name="fechaSalida"
+          class="mt-1 w-full rounded-lg bg-gray-100 px-4 py-2"
+        />
+      </div>
+      <div>
+        <label class="block text-sm text-gray-700">Teléfono</label>
+        <input
+          type="tel"
+          [(ngModel)]="reserva.telefono"
+          name="telefono"
+          class="mt-1 w-full rounded-lg bg-gray-100 px-4 py-2"
+        />
+      </div>
+      <div>
+        <label class="block text-sm text-gray-700">Cantidad de personas</label>
+        <input
+          type="number"
+          [(ngModel)]="reserva.cantidad"
+          name="cantidad"
+          min="1"
+          class="mt-1 w-full rounded-lg bg-gray-100 px-4 py-2"
+        />
+      </div>
+    </div>
+
+    <!-- ───────────────────────── Botones ────────────────────────── -->
+    <div class="col-span-2 flex justify-end gap-4 mt-4">
+      <button
+        type="button"
+        (click)="cancelar()"
+        class="bg-red-400 text-white px-6 py-2 rounded-full hover:bg-red-500"
+      >
+        CANCELAR
+      </button>
+      <button
+        type="submit"
+        [disabled]="!clienteEncontrado"
+        class="bg-black text-white px-6 py-2 rounded-full hover:bg-gray-800 disabled:opacity-40"
+      >
+        CONFIRMAR
+      </button>
+    </div>
+  </form>
+</div>

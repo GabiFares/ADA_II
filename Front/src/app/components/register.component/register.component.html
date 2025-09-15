@@ -1,0 +1,204 @@
+<div class="flex min-h-screen">
+    <!-- Columna verde con logo (40%) -->
+    <div class="w-2/5 flex items-center justify-center" style="background-color: #3e7448">
+        <img src="assets/cedros_logo.png" alt="Logo Los Cedros" class="w-32 opacity-90" />
+    </div>
+
+    <div class="w-3/5 bg-white flex items-center justify-center">
+        <div class="w-full max-w-lg p-8 flex flex-col justify-center">
+            <h2 class="text-xl font-semibold text-center mb-6">¡Bienvenido!</h2>
+            <div *ngIf="success" class="text-green-600 text-center mb-2">
+                {{ success }}
+            </div>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
+                <div class="flex gap-4">
+                    <!-- Nombre -->
+                    <div class="w-1/2">
+                        <label class="text-sm text-gray-700">Nombre</label>
+                        <input type="text" formControlName="nombre" placeholder="Nombre"
+                            class="mt-1 block w-full text-sm rounded-md border border-gray-300 p-2 focus:ring focus:ring-green-500" />
+                        <div *ngIf="
+                registerForm.get('nombre')?.touched &&
+                registerForm.get('nombre')?.invalid
+              " class="text-red-500 text-xs mt-1">
+                            El nombre es obligatorio.
+                        </div>
+                    </div>
+                    <!-- Apellido -->
+                    <div class="w-1/2">
+                        <label class="text-sm text-gray-700">Apellido</label>
+                        <input type="text" formControlName="apellido" placeholder="Apellido"
+                            class="mt-1 block w-full text-sm rounded-md border border-gray-300 p-2 focus:ring focus:ring-green-500" />
+                        <div *ngIf="
+                registerForm.get('apellido')?.touched &&
+                registerForm.get('apellido')?.invalid
+              " class="text-red-500 text-xs mt-1">
+                            El apellido es obligatorio.
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <!-- Cédula -->
+                    <div class="w-1/2">
+                        <label class="text-sm text-gray-700">Cédula</label>
+                        <input type="text" formControlName="ci" placeholder="Cédula"
+                            class="mt-1 block w-full text-sm rounded-md border border-gray-300 p-2 focus:ring focus:ring-green-500" />
+                        <div *ngIf="
+                registerForm.get('ci')?.touched &&
+                registerForm.get('ci')?.invalid
+              " class="text-red-500 text-xs mt-1">
+                            <span *ngIf="registerForm.get('ci')?.errors?.['required']">La cédula es obligatoria.</span>
+                            <span *ngIf="registerForm.get('ci')?.errors?.['pattern']">Debe ser un número válido (7-8
+                                dígitos).</span>
+                        </div>
+                    </div>
+                    <!-- Nombre de Usuario -->
+                    <div class="w-1/2">
+                        <label class="text-sm text-gray-700">Nombre de Usuario</label>
+                        <input type="text" formControlName="nombreUsuario" placeholder="Nombre de Usuario"
+                            class="mt-1 block w-full text-sm rounded-md border border-gray-300 p-2 focus:ring focus:ring-green-500" />
+                        <div *ngIf="
+                registerForm.get('nombreUsuario')?.touched &&
+                registerForm.get('nombreUsuario')?.invalid
+              " class="text-red-500 text-xs mt-1">
+                            El nombre de usuario es obligatorio.
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <!-- Contraseña -->
+                    <div class="w-1/2">
+                        <label class="text-sm text-gray-700">Contraseña</label>
+                        <input type="password" formControlName="contrasenia" placeholder="Contraseña"
+                            class="mt-1 block w-full text-sm rounded-md border border-gray-300 p-2 focus:ring focus:ring-green-500" />
+                        <div *ngIf="registerForm.get('contrasenia')?.touched && registerForm.get('contrasenia')?.invalid"
+                            class="text-red-500 text-xs mt-1">
+                            <span *ngIf="registerForm.get('contrasenia')?.errors?.['required']">La contraseña es
+                                obligatoria.</span>
+                            <span *ngIf="registerForm.get('contrasenia')?.errors?.['minlength']">Debe tener al menos 8
+                                caracteres.</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Repetir contraseña -->
+                <div class="w-1/2">
+                    <label class="text-sm text-gray-700">Repetir contraseña</label>
+                    <input type="password" formControlName="repetirContrasenia" placeholder="Repetir contraseña"
+                        class="mt-1 block w-full text-sm rounded-md border border-gray-300 p-2 focus:ring focus:ring-green-500" />
+                    <div *ngIf="registerForm.get('repetirContrasenia')?.touched && registerForm.get('repetirContrasenia')?.invalid"
+                        class="text-red-500 text-xs mt-1">
+                        Debes repetir la contraseña.
+                    </div>
+                    <div *ngIf="registerForm.get('repetirContrasenia')?.touched && registerForm.value.contrasenia !== registerForm.value.repetirContrasenia"
+                        class="text-red-500 text-xs mt-1">
+                        Las contraseñas no coinciden.
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <!-- Teléfono -->
+                    <div class="w-1/2">
+                        <label class="text-sm text-gray-700">Teléfono</label>
+                        <input type="text" formControlName="telefono" placeholder="Teléfono"
+                            class="mt-1 block w-full text-sm rounded-md border border-gray-300 p-2 focus:ring focus:ring-green-500" />
+                        <div *ngIf="registerForm.get('telefono')?.touched && registerForm.get('telefono')?.invalid"
+                            class="text-red-500 text-xs mt-1">
+                            <span *ngIf="registerForm.get('telefono')?.errors?.['required']">El teléfono es
+                                obligatorio.</span>
+                            <span *ngIf="registerForm.get('telefono')?.errors?.['pattern']">Debe ser un número
+                                válido.</span>
+                        </div>
+                    </div>
+                    <!-- Email -->
+                    <div class="w-1/2">
+                        <label class="text-sm text-gray-700">Email</label>
+                        <input type="email" formControlName="email" placeholder="Email"
+                            class="mt-1 block w-full text-sm rounded-md border border-gray-300 p-2 focus:ring focus:ring-green-500" />
+                        <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid"
+                            class="text-red-500 text-xs mt-1">
+                            <span *ngIf="registerForm.get('email')?.errors?.['required']">El email es
+                                obligatorio.</span>
+                            <span *ngIf="registerForm.get('email')?.errors?.['email']">Debe ser un email válido.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <!-- País -->
+                    <div class="w-1/2">
+                        <label class="text-sm text-gray-700">País</label>
+                        <input type="text" formControlName="pais" placeholder="País"
+                            class="mt-1 block w-full text-sm rounded-md border border-gray-300 p-2 focus:ring focus:ring-green-500" />
+                        <div *ngIf="registerForm.get('pais')?.touched && registerForm.get('pais')?.invalid"
+                            class="text-red-500 text-xs mt-1">
+                            El país es obligatorio.
+                        </div>
+                    </div>
+
+                    <!-- Departamento -->
+                    <div class="w-1/2">
+                        <label class="text-sm text-gray-700">Departamento</label>
+                        <input type="text" formControlName="departamento" placeholder="Departamento"
+                            class="mt-1 block w-full text-sm rounded-md border border-gray-300 p-2 focus:ring focus:ring-green-500" />
+                        <div *ngIf="registerForm.get('departamento')?.touched && registerForm.get('departamento')?.invalid"
+                            class="text-red-500 text-xs mt-1">
+                            El departamento es obligatorio.
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <!-- Ciudad -->
+                    <div class="w-1/2">
+                        <label class="text-sm text-gray-700">Ciudad</label>
+                        <input type="text" formControlName="ciudad" placeholder="Ciudad"
+                            class="mt-1 block w-full text-sm rounded-md border border-gray-300 p-2 focus:ring focus:ring-green-500" />
+                        <div *ngIf="registerForm.get('ciudad')?.touched && registerForm.get('ciudad')?.invalid"
+                            class="text-red-500 text-xs mt-1">
+                            La ciudad es obligatoria.
+                        </div>
+                    </div>
+                    <!-- Calle -->
+                    <div class="w-1/2">
+                        <label class="text-sm text-gray-700">Calle</label>
+                        <input type="text" formControlName="calle" placeholder="Calle"
+                            class="mt-1 block w-full text-sm rounded-md border border-gray-300 p-2 focus:ring focus:ring-green-500" />
+                        <div *ngIf="registerForm.get('calle')?.touched && registerForm.get('calle')?.invalid"
+                            class="text-red-500 text-xs mt-1">
+                            La calle es obligatoria.
+                        </div>
+                    </div>
+                    <!-- Número de puerta -->
+                    <div class="w-1/2">
+                        <label class="text-sm text-gray-700">Número de puerta</label>
+                        <input type="text" formControlName="numPuerta" placeholder="Número de puerta"
+                            class="mt-1 block w-full text-sm rounded-md border border-gray-300 p-2 focus:ring focus:ring-green-500" />
+                        <div *ngIf="registerForm.get('numPuerta')?.touched && registerForm.get('numPuerta')?.invalid"
+                            class="text-red-500 text-xs mt-1">
+                            El número de puerta es obligatorio.
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="w-1/2">
+                        <label class="text-sm text-gray-700">Rol</label>
+                        <select formControlName="idRol"
+                            class="mt-1 block w-full text-sm rounded-md border border-gray-300 p-2">
+                            <option value="" disabled selected>Selecciona un rol</option>
+                            <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
+                        </select>
+                        <div *ngIf="registerForm.get('idRol')?.touched && registerForm.get('idRol')?.invalid"
+                            class="text-red-500 text-xs mt-1">
+                            El rol es obligatorio.
+                        </div>
+                    </div>
+                </div>
+                <button type="submit"
+                    class="w-full bg-black text-white py-2 rounded text-sm hover:bg-gray-800 transition mt-4"
+                    [disabled]="registerForm.invalid">
+                    Siguiente
+                </button>
+            </form>
+            <div *ngIf="error" class="error text-red-500 mt-2 text-center">
+                {{ error }}
+            </div>
+        </div>
+    </div>
+</div>

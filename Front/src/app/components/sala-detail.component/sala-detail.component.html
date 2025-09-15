@@ -1,0 +1,45 @@
+<div class="min-h-screen bg-[#4B7753] flex items-center justify-center p-8">
+  <div class="bg-white rounded-3xl flex flex-col md:flex-row overflow-hidden w-full max-w-5xl">
+
+    <!-- Izquierda: Información de la sala -->
+    <div class="p-10 flex flex-col justify-center md:w-1/2">
+      <h2 class="text-xl font-light italic">SALÓN</h2>
+      <h3 class="text-3xl font-semibold mb-2">{{ sala?.nombre }}</h3>
+
+      <div class="text-gray-700 text-sm mb-4">
+        <span class="mr-4">Capacidad: {{ sala?.capacidad }}</span>
+        <span>Precio: USD {{ sala?.precio }}</span>
+      </div>
+
+      <p class="text-gray-600 mb-8">
+        {{ sala?.equipamiento || 'Sala equipada con proyector, aire y mobiliario cómodo.' }}
+      </p>
+
+      <div class="text-gray-700 text-sm mb-4">
+        <span class="font-semibold">Estado:</span> {{ sala?.estado?.nombre }}
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a routerLink="['/reservas/nueva']" queryParams="{ salaId: sala.id, nombre: sala.nombre }"
+          class="bg-black text-white px-6 py-2 rounded-full hover:bg-gray-900">
+          Reservar
+        </a>
+
+        <button class="bg-gray-700 text-white px-6 py-2 rounded-full hover:bg-gray-800">
+          Ver disponibilidad
+        </button>
+      </div>
+    </div>
+
+    <!-- Derecha: Imagen según estado -->
+    <div class="md:w-1/2">
+      <ng-container [ngSwitch]="sala?.estado?.nombre">
+        <img *ngSwitchCase="'libre'" src="assets/icons/meeting-room.png" alt="Sala libre"
+          class="object-cover h-full w-full" />
+        <img *ngSwitchCase="'ocupado'" src="assets/icons/meeting-room-ocupada.png" alt="Sala ocupada"
+          class="object-cover h-full w-full" />
+        <img *ngSwitchDefault src="assets/icons/meeting-room.png" alt="Sala" class="object-cover h-full w-full" />
+      </ng-container>
+    </div>
+  </div>
+</div>

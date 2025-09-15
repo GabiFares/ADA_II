@@ -1,0 +1,35 @@
+<!-- src/app/components/layout.component.html -->
+<div class="bg-[#4B7753]">
+  <!-- Botón hamburguesa -->
+  <button (click)="toggleSidebar()" class="p-4 text-white fixed top-0 left-0 z-50">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+      class="w-8 h-8">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5M3.75 12h16.5m-16.5 6.75h16.5" />
+    </svg>
+  </button>
+
+  <!-- Sidebar -->
+  <div *ngIf="sidebarOpen" class="fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-40 p-6 space-y-6">
+    <button class="text-red-500 font-bold" (click)="toggleSidebar()">
+      &times;
+    </button>
+    <a routerLink="/home" class="block hover:underline">🏠 Inicio</a>
+    <a routerLink="/perfil" class="block hover:underline">👤 Perfil</a>
+    <a *ngIf="esAdmin()" routerLink="/register" class="block hover:underline">+ Registrar Usuario</a>
+    <button (click)="cerrarSesion()" class="text-red-600 hover:underline">
+      🚪 Cerrar sesión
+    </button>
+  </div>
+  <!-- Overlay para cerrar sidebar -->
+  <div *ngIf="sidebarOpen" class="fixed inset-0 bg-black/30 z-30" (click)="toggleSidebar()"></div>
+
+  <!-- Contenido principal -->
+  <div class="px-4 min-h-screen flex flex-col items-center justify-center">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- Logo -->
+<div class="fixed bottom-8 right-8 opacity-80 z-50 pointer-events-none">
+  <img src="assets/cedros_logo.png" alt="Los Cedros Hotel & Eventos Logo" class="w-20 h-auto" />
+</div>

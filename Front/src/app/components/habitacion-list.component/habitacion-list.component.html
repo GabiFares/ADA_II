@@ -1,0 +1,96 @@
+<div class="min-h-screen bg-[#4B7753] border-gray-300 pb-32">
+  <!-- Top Bar / Header -->
+  <div class="w-fit mx-auto mt-12 mb-20 flex items-center rounded-full bg-white px-8 py-4 shadow-sm space-x-4">
+    <!-- Huéspedes -->
+    <div>
+      <div class="text-xs text-gray-600 leading-tight">Huéspedes</div>
+      <input type="number" placeholder="¿Cuántos?" class="w-24 bg-transparent focus:outline-none text-sm" />
+    </div>
+    <div class="h-8 border-l border-gray-300 mx-2"></div>
+    <!-- Llegada -->
+    <div>
+      <div class="text-xs text-gray-600 leading-tight">Llegada</div>
+      <input type="date" class="w-32 bg-transparent focus:outline-none text-sm" />
+    </div>
+    <div class="h-8 border-l border-gray-300 mx-2"></div>
+    <!-- Salida -->
+    <div>
+      <div class="text-xs text-gray-600 leading-tight">Salida</div>
+      <input type="date" class="w-32 bg-transparent focus:outline-none text-sm" />
+    </div>
+    <div class="h-8 border-l border-gray-300 mx-2"></div>
+    <!-- Categoría -->
+    <div>
+      <div class="text-xs text-gray-600 leading-tight">Categoría</div>
+      <input type="text" placeholder="Agregar cat.." class="w-32 bg-transparent focus:outline-none text-sm" />
+    </div>
+    <button class="ml-4">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Rooms Grid -->
+  <div class="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-10 gap-12 mt-16">
+    <ng-container *ngIf="habitaciones.length > 0; else sinHabitaciones">
+      <a *ngFor="let hab of habitaciones" [routerLink]="['/habitaciones', hab.id]"
+        class="flex flex-col items-center space-y-1 select-none hover:scale-105 transition-transform duration-200">
+        <ng-container [ngSwitch]="hab.estado.nombre">
+          <!-- Disponible -->
+          <svg *ngSwitchCase="'Disponible'" xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-black" fill="none"
+            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6.5L4 19h16V6.5l-6-3-6 3Z" />
+            <circle cx="17" cy="12" r="1" fill="black" />
+          </svg>
+
+          <!-- Mantenimiento -->
+          <svg *ngSwitchCase="'Mantenimiento'" xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-gray-600"
+            fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M14.7 11.29l-4-4a1 1 0 0 0-1.42 0l-1.3 1.3a1 1 0 0 0 0 1.42l4 4a1 1 0 0 0 1.42 0l1.3-1.3a1 1 0 0 0 0-1.42z" />
+          </svg>
+
+          <!-- Ocupada -->
+          <div *ngSwitchCase="'Ocupada'" class="relative w-14 h-14">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute w-14 h-14 text-black" fill="none"
+              viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6.5L4 19h16V6.5l-6-3-6 3Z" />
+              <circle cx="17" cy="12" r="1" fill="black" />
+            </svg>
+            <svg class="absolute left-0 top-0 w-14 h-14" viewBox="0 0 24 24">
+              <line x1="5" y1="22" x2="19" y2="2" stroke="red" stroke-width="2" />
+            </svg>
+          </div>
+
+          <!-- Limpieza -->
+          <svg *ngSwitchCase="'Limpieza'" xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-yellow-500"
+            fill="currentColor" viewBox="0 0 24 24">
+            <path d="M7 21v-4a5 5 0 0 1 10 0v4" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+
+          <!-- Default -->
+          <img *ngSwitchDefault src="assets/icons/door.png" alt="Habitación" class="w-14 h-14 object-contain" />
+        </ng-container>
+        <div class="text-white text-lg mt-2">{{ hab.numHabitacion }}</div>
+      </a>
+    </ng-container>
+  </div>
+
+  <ng-template #sinHabitaciones>
+    <p class="text-white text-center text-lg mt-8">
+      No hay habitaciones para mostrar.
+    </p>
+  </ng-template>
+
+  <!-- Botón de volver -->
+  <div class="text-center mt-16">
+    <a routerLink="/"
+      class="inline-block bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full shadow-md transition duration-200">
+      ← Volver al inicio
+    </a>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="w-screen h-screen bg-[#4B7753] flex items-center justify-center px-4 py-12 overflow-y-auto">
+  <div class="bg-white rounded-3xl shadow-xl p-8 max-w-xl w-full">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Detalle de la Reserva</h2>
+
+    <div *ngIf="reserva">
+      <p class="mb-2">
+        <strong class="text-gray-700">ID:</strong> {{ reserva.id }}
+      </p>
+
+      <p class="mb-2">
+        <strong class="text-gray-700">Ingreso:</strong> {{ reserva.fechaIngreso | date:'short' }}
+      </p>
+
+      <p class="mb-2">
+        <strong class="text-gray-700">Salida:</strong> {{ reserva.fechaSalida | date:'short' }}
+      </p>
+
+      <p class="mb-2">
+        <strong class="text-gray-700">Tipo:</strong>
+        {{ reserva.empresa ? 'Empresa' : 'Individuo' }}
+      </p>
+
+      <p class="mb-2" *ngIf="reserva.huesped">
+        <strong class="text-gray-700">Huésped:</strong> {{ reserva.huesped.nombre }} {{ reserva.huesped.apellido }}
+      </p>
+
+      <p class="mb-2" *ngIf="reserva.empresa">
+        <strong class="text-gray-700">Empresa:</strong> {{ reserva.empresa.nomFantasia }}
+      </p>
+
+      <p class="mb-2">
+        <strong class="text-gray-700">Teléfono:</strong>
+        {{
+          reserva.huesped?.persona?.telefono ||
+          reserva.empresa?.persona?.telefono ||
+          'No disponible'
+        }}
+      </p>
+
+      <p class="mb-6">
+        <strong class="text-gray-700">Usuario:</strong> {{ reserva.usuario?.nombre }} {{ reserva.usuario?.apellido }}
+      </p>
+
+      <button
+        (click)="volver()"
+        class="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-full w-full"
+      >
+        ← Volver
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+.git
+target
+Front/node_modules
+node_modules
+**/.env

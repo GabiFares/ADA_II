@@ -1,0 +1,11 @@
+<h2>Categorías</h2>
+
+<ul *ngIf="categorias.length > 0; else sinCategorias">
+  <li *ngFor="let cat of categorias">
+    <strong>{{ cat.nombre }}</strong> - {{ cat.descripcion }}
+  </li>
+</ul>
+
+<ng-template #sinCategorias>
+  <p>No hay categorías disponibles.</p>
+</ng-template>
